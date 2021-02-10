@@ -1,0 +1,72 @@
+﻿@page
+@using Vidly.Utility
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h1>@ViewData["Title"]</h1>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <h4>Create a new account.</h4>
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Input.FirstName"></label>
+                <input class="form-control" type="text" asp-for="Input.FirstName" autocomplete="off" />
+                <span class="text-danger" asp-validation-for="Input.FirstName"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.LastName"></label>
+                <input class="form-control" type="text" asp-for="Input.LastName" autocomplete="off" />
+                <span class="text-danger" asp-validation-for="Input.LastName"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.City"></label>
+                <input class="form-control" type="text" asp-for="Input.City" autocomplete="off" />
+                <span class="text-danger" asp-validation-for="Input.City"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.State"></label>
+                <input class="form-control" type="text" asp-for="Input.State" autocomplete="off"/>
+                <span class="text-danger" asp-validation-for="Input.State"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.PhoneNumber"></label>
+                <input class="form-control" type="text" asp-for="Input.PhoneNumber" autocomplete="off" />
+                <span class="text-danger" asp-validation-for="Input.PhoneNumber"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Email"></label>
+                <input asp-for="Input.Email" class="form-control" autocomplete="off" />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Password"></label>
+                <input asp-for="Input.Password" class="form-control" autocomplete="off" />
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.ConfirmPassword"></label>
+                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="off" />
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+            @if (User.IsInRole(SD.ManagerUser))
+            {
+                @*Show radio buttons for assigning roles*@
+                <div class="form-group">
+                    <input type="radio" name="userRole" value="@SD.ManagerUser" checked /> Manager
+                    <input type="radio" name="userRole" value="@SD.AdminUser" checked/> Admin
+                    <input type="radio" name="userRole" value="@SD.CustomerUser" checked /> Customer
+                </div>
+            }
+            <button type="submit" class="btn btn-primary">Register</button>
+            <p>Already have an account? Click <a asp-page="Login" asp-area="Identity">Here</a> to login</p>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

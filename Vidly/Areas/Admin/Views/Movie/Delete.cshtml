@@ -1,0 +1,35 @@
+﻿@model Vidly.Models.ViewModels.MovieDetailsViewModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+<h3>Are you sure you want to delete this Movie?</h3>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Delete" method="post">
+            <div class="form-group">
+                <label asp-for="Movie.Name"></label>
+                <input class="form-control" type="text" readonly asp-for="Movie.Name" width="200" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Movie.Description"></label>
+                <input class="form-control" type="text" readonly asp-for="Movie.Description" width="200" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Movie.Price"></label>
+                <input class="form-control" readonly type="number" asp-for="Movie.Price" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Movie.Image"></label>
+                <img src="@Model.Movie.Image" alt="Movie Picture" width="100" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Movie.CategoryId"></label>
+                <input class="form-control" type="text" readonly asp-for="CategoryName" width="200" />
+            </div>
+            <button type="submit" class="btn btn-danger" asp-route-id="@Model.Movie.Id">Delete</button>
+            <br />
+            <a asp-action="Index">Back to List</a>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Vidly.Models.ApplicationUser> 
+@{
+    ViewData["Title"] = "Users";
+}
+
+<h1>Users</h1>
+<a class="btn btn-info" asp-area="Identity" asp-page="/Account/Register">Create User</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(m => m.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.LastName)
+            </th>
+            <th>
+                Phone Number
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Email)
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(ApplicationUser user in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => user.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => user.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => user.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => user.Email)
+                </td>
+                <td>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@user.Id">Delete User Account!</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

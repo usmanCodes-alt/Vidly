@@ -1,0 +1,37 @@
+﻿@model Vidly.Models.Coupon
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <input class="form-control" type="text" readonly asp-for="Name" />
+        </div>
+        <div class="form-group">
+            <label asp-for="DiscountPercentage"></label>
+            <input class="form-control" readonly type="number" asp-for="DiscountPercentage"/>
+        </div>
+        <div class="form-group">
+            <label asp-for="MinimumPurchaseRequired"></label>
+            <input class="form-control" readonly type="number" asp-for="MinimumPurchaseRequired"/>
+        </div>
+        <div class="form-group">
+            <label asp-for="IsActive"></label>
+            @if (Model.IsActive)
+            {
+                <p class="fw-bold">Yes</p>
+            }
+            else
+            {
+                <p class="fw-bold">No</p>
+            }
+        </div>
+        <a class="btn btn-success" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+        <br />
+        <a class="btn btn-secondary mt-2" asp-action="Index">Back</a>
+    </div>
+</div>

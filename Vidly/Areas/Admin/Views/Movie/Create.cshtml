@@ -1,0 +1,66 @@
+﻿@model Vidly.Models.ViewModels.CreateNewMovieViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Movie</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        @if (Model.StatusMessage != "")
+        {
+            <div class="alert alert-danger" role="alert">
+                <p>A movie with same name already exists, please try again.</p>
+            </div>
+        }
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Movie.Name"></label>
+                <input class="form-control" type="text" asp-for="Movie.Name" />
+                <span class="text-danger" asp-validation-for="Movie.Name"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Movie.Description"></label>
+                <textarea class="form-control" asp-for="Movie.Description">
+                    
+                </textarea>
+                <span asp-validation-for="Movie.Description"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Movie.Price"></label>
+                <input class="form-control" type="number" asp-for="Movie.Price"/>
+            </div>
+            <div class="form-group">
+                <label asp-for="Movie.Image"></label>
+                <input class="form-control" asp-for="Movie.Image" type="file" multiple/>
+            </div>
+            <div class="form-group">
+                <label asp-for="Movie.CategoryId"></label>
+                <select asp-for="Movie.CategoryId" asp-items="Model.Categories" class="form-control">
+
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Movie.TotalAvailable"></label>
+                <input class="form-control" type="number" asp-for="Movie.TotalAvailable" />
+                <span asp-validation-for="Movie.TotalAvailable"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Movie.IsAvailable"></label>
+                <input type="checkbox" class="form-control" asp-for="Movie.IsAvailable"/>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

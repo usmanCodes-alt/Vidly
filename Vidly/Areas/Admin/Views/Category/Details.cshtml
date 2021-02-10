@@ -1,0 +1,22 @@
+﻿@model Vidly.Models.Category
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Category</h4>
+    <hr />
+    <dl class="row">
+        <dd class="col-sm-4">
+            <label asp-for="@Model.Name"></label>
+            <input class="form-control" type="text" readonly asp-for="@Model.Name" />
+        </dd>
+    </dl>
+    <a class="btn btn-success" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Vidly.Models.Coupon>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Coupons</h1>
+
+<a class="btn btn-primary mb-2 mt-2" asp-action="AddCoupon">Add Coupon</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.Name)</th>
+            <th>@Html.DisplayNameFor(m => m.IsActive)</th>
+            <th>@Html.DisplayNameFor(m => m.MinimumPurchaseRequired)</th>
+            <th>@Html.DisplayNameFor(m => m.DiscountPercentage)</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(Coupon coupon in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(m => coupon.Name)</td>
+                <td>@Html.DisplayFor(m => coupon.IsActive)</td>
+                <td>@Html.DisplayFor(m => coupon.MinimumPurchaseRequired)</td>
+                <td>@Html.DisplayFor(m => coupon.DiscountPercentage)</td>
+                <td>
+                    <a class="btn btn-primary" asp-action="Details" asp-route-id="@coupon.Id">Details</a>
+                    <a class="btn btn-success" asp-action="Edit" asp-route-id="@coupon.Id">Edit</a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@coupon.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

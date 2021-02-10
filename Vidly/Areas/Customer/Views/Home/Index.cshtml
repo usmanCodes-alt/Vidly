@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Vidly.Models.Movie>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Movies</h1>
+    @foreach (Movie movie in Model)
+    {
+        <div class="card mb-3 mt-2" style="max-width: 540px; min-width: 540px; display: inline-block;">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="@movie.Image" alt="Movie Image" width="200" height="250">
+                </div>
+                <div class="col-md-8">
+                    <h3 class="card-header bg-transparent ml-3">@movie.Name</h3>
+                    <div class="card-body">
+                        <h5 class="card-title">@movie.Category.Name</h5>
+                        <p class="card-text">@movie.Description</p>
+                    </div>
+                    <a asp-action="Details" asp-route-id="@movie.Id" class="btn btn-light btn-lg">Buy</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

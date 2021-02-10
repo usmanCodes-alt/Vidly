@@ -1,0 +1,81 @@
+﻿@using Vidly.Utility
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Vidly</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body style="background: #e8e8e8;">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Vidly</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <partial name="_LoginPartial" />
+                    <ul class="navbar-nav flex-grow-1">
+                        @if (User.IsInRole(SD.AdminUser) || User.IsInRole(SD.ManagerUser))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" aria-haspopup="true" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-expanded="false">
+                                    Manage
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Categories</a></li>
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Movie" asp-action="Index">Movies</a></li>
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Coupon" asp-action="Index">Coupons</a></li>
+                                    @if (User.IsInRole(SD.ManagerUser))
+                                    {
+                                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Index">Users</a></li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        @if (HttpContextAccessor.HttpContext.Session.GetInt32(SD.SessionName) != null)
+                        {
+                            <li class="nav-item">
+                                @{
+                                    var cartCount = HttpContextAccessor.HttpContext.Session.GetInt32(SD.SessionName);
+                                }
+                                <a class="nav-link text-dark" asp-area="Customer" asp-controller="Cart" asp-action="Index">Cart (@cartCount)</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="Customer" asp-controller="Cart" asp-action="Index">Cart (0)</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021 - Vidly - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
