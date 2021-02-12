@@ -1,9 +1,18 @@
 ﻿@model Vidly.Models.ViewModels.OrderDetailsViewModel
 @{
-    ViewData["Title"] = "ConfirmOrder";
+    ViewData["Title"] = "Order Confirmed";
 }
 
-<h1 class="text-info">Order Confirmed</h1>
+@*<h1 class="text-info">Order Confirmed</h1>*@
+
+<div class="row mb-2">
+    <div class="col-6">
+        <h1 class="text-info">Order Confirmed</h1>
+    </div>
+    <div class="col-6 text-right">
+        <a class="btn btn-info btn-lg" asp-area="Customer" asp-controller="Home" asp-action="Index">New Order</a>
+    </div>
+</div>
 
 <div class="container row border ml-1 backgroundWhiteBorder10Padding" style="width: 100%;">
     <div class="col-lg-8 col-12" style="border-right: 1px solid #bbb9b9;">
@@ -91,6 +100,17 @@
                 <small class="text-info">$@Model.OrderHeader.Price</small>
             </li>
         </ul>
-        <button type="submit" disabled class="btn btn-info form-control">@Model.OrderHeader.Status</button>
+        @{ 
+            string isConfirmed = "";
+            if (Model.OrderHeader.Status == 1)
+            {
+                isConfirmed = "Confirmed";
+            }
+            else
+            {
+                isConfirmed = "Not Confirmed";
+            }
+        }
+        <button type="submit" disabled class="btn btn-info form-control">@isConfirmed</button>
     </div>
 </div>

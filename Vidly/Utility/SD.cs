@@ -18,6 +18,7 @@ namespace Vidly.Utility
 
         //Order Status
         public const int OrderSubmitted = 1;
+        public const int OrderReady = 2;
         public const int OrderRecieved = 0;
     }
 }

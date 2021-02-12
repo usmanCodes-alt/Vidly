@@ -30,6 +30,7 @@ User can provide Image for a movie to be saved in the database. The Image is sav
 the server rather than on the database.
 
 ![Add a movie](../Vidly/ProjectImages/AddingMovie.PNG)
+
 The **User Controller** is only restricted to manager or a super admin who can see all the employees (Admins) currently working.
 
 ## Customer Area

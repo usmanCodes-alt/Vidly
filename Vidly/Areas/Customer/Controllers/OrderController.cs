@@ -33,7 +33,7 @@ namespace Vidly.Areas.Customer.Controllers
             ClaimsIdentity claimsIdentity = (ClaimsIdentity)User.Identity;
             Claim claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             OrderHeader orderHeader = _db.OrderHeaders.Include(s => s.ApplicationUser).Where(s => s.ApplicationUserId == claim.Value).FirstOrDefault();
-            List<OrderDetails> orderDetails = _db.OrderDetails.Where(s => s.OrderHeaderId == orderHeader.Id).ToList();
+            List<OrderDetails> orderDetails = _db.OrderDetails.Include(s => s.Movie).Where(s => s.OrderHeaderId == orderHeader.Id).ToList();
             OrderDetailsViewModel model = new OrderDetailsViewModel
             {
                 OrderHeader = orderHeader,
@@ -41,8 +41,6 @@ namespace Vidly.Areas.Customer.Controllers
             };
             return View(model);
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult PlaceOrder()
         {
             double totalAmount = 0;
