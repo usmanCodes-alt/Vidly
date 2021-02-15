@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Vidly.Data;
@@ -18,9 +19,11 @@ namespace Vidly.Areas.Customer.Controllers
     public class OrderController : Controller
     {
         private readonly ApplicationDbContext _db;
-        public OrderController(ApplicationDbContext db)
+        private readonly IEmailSender _emailSender;
+        public OrderController(ApplicationDbContext db, IEmailSender emailSender)
         {
             _db = db;
+            _emailSender = emailSender;
         }
         public IActionResult Index()
         {
@@ -41,7 +44,7 @@ namespace Vidly.Areas.Customer.Controllers
             };
             return View(model);
         }
-        public ActionResult PlaceOrder()
+        public async Task<IActionResult> PlaceOrder()
         {
             double totalAmount = 0;
             ClaimsIdentity claimsIdentity = (ClaimsIdentity)User.Identity;
@@ -69,12 +72,8 @@ namespace Vidly.Areas.Customer.Controllers
                 orderHeader.CouponCode = coupon.Name;
             }
             orderHeader.Price = totalAmount;
-            OrderHeader duplicateOrderHeader = _db.OrderHeaders.Where(s => s.ApplicationUserId == claim.Value).FirstOrDefault();
-            if (duplicateOrderHeader == null)
-            {
-                _db.OrderHeaders.Add(orderHeader);
-                _db.SaveChanges();
-            }
+            _db.OrderHeaders.Add(orderHeader);
+            _db.SaveChanges();
             foreach (Cart cart in userOrders)
             {
                 OrderDetails orderDetails = new OrderDetails
@@ -111,6 +110,8 @@ namespace Vidly.Areas.Customer.Controllers
                 _db.Carts.Remove(cart);
             }
             _db.SaveChanges();
+            string userEmail = _db.ApplicationUsers.Where(s => s.Id == claim.Value).FirstOrDefault().Email;
+            await _emailSender.SendEmailAsync(userEmail, "Vidly - Order Confirmed " + model.OrderHeader.Id, "Order has been submitted successfully");
             HttpContext.Session.SetString(SD.SessionName, string.Empty);
             return RedirectToAction(nameof(ConfirmOrder));
         }

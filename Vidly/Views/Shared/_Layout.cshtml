@@ -32,7 +32,7 @@
                                     <li><a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Categories</a></li>
                                     <li><a class="dropdown-item" asp-area="Admin" asp-controller="Movie" asp-action="Index">Movies</a></li>
                                     <li><a class="dropdown-item" asp-area="Admin" asp-controller="Coupon" asp-action="Index">Coupons</a></li>
-                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Order" asp-action="Index">Orders</a></li>
+                                    @*<li><a class="dropdown-item" asp-area="Admin" asp-controller="Order" asp-action="Index">Orders</a></li>*@
                                     @if (User.IsInRole(SD.ManagerUser))
                                     {
                                         <li><a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Index">Users</a></li>
@@ -40,9 +40,19 @@
                                 </ul>
                             </li>
                         }
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
+                        @if (User.IsInRole(SD.AdminUser) || User.IsInRole(SD.ManagerUser))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" aria-haspopup="true" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-expanded="false">
+                                    Orders
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Order" asp-action="Index">Current Orders</a></li>
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Order" asp-action="ConfirmPickup">Confirm Pick-up</a></li>
+                                </ul>
+                            </li>
+                            
+                        }
                         @if (HttpContextAccessor.HttpContext.Session.GetInt32(SD.SessionName) != null)
                         {
                             <li class="nav-item">

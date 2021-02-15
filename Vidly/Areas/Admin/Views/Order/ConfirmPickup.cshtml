@@ -1,10 +1,9 @@
 ﻿@model IEnumerable<Vidly.Models.OrderHeader>
 @{
-    ViewData["Title"] = "Orders";
-    @*Layout = "~/Views/Shared/_Layout.cshtml";*@
+    ViewData["Title"] = "Confirm Pickup";
 }
 
-<h1 class="text-info">Orders</h1>
+<h1 class="text-info">Confirm Pickup</h1>
 
 <table class="table">
     <thead>
@@ -14,9 +13,7 @@
             <th>@Html.DisplayNameFor(m => m.Price)</th>
             <th>@Html.DisplayNameFor(m => m.OrderTime)</th>
             <th>@Html.DisplayNameFor(m => m.PickUpTime)</th>
-            <th>
-                Actions
-            </th>
+            <th>Pick-up</th>
         </tr>
     </thead>
     <tbody>
@@ -29,7 +26,7 @@
                 <td>@Html.DisplayFor(m => order.OrderTime)</td>
                 <td>@Html.DisplayFor(m => order.PickUpTime)</td>
                 <td>
-                    <a class="btn btn-success" asp-area="Admin" asp-controller="Order" asp-action="OrderReady" asp-route-orderHeaderId="@order.Id">Order Ready</a>
+                    <a class="btn btn-success" asp-action="Confirm" asp-route-orderHeaderId="@order.Id">Confirm</a>
                 </td>
             </tr>
         }
