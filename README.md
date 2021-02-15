@@ -33,6 +33,7 @@ the server rather than on the database.
 
 The **User Controller** is only restricted to manager or a super admin who can see all the employees (Admins) currently working.
 
+
 ## Customer Area
 The customer area has the following controllers
 * Cart Controller
@@ -55,3 +56,9 @@ There are two actions in this controller.
 The *PlaceOrder* action takes the user carts and does entries into the database regarding user order
 deletes the carts (empties the cart), and redirects the user to the *ConfirmOrder* action with return the view
 of displaying every movie user bought along with the **Total Price** and any coupons used.
+
+When a user places the order their order status is marked as *Submitted* and an Email is sent to the
+user that their order has been placed.
+
+Similarly when the admin confirms that the order is ready, the customer is sent
+an email reminding that the order is ready for pickup.
