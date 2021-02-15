@@ -8,7 +8,7 @@ This project is divided into Area
 
 Landing page of the website comprises of list of movies from where user has to register or login in order to perform any sort of purchase.
 
-![Home page](../Vidly/ProjectImages/Home.PNG)
+![Home page](./Vidly/ProjectImages/Home.PNG)
 
 ## Admin Area
 The **Admin area** has controllers for
@@ -29,7 +29,7 @@ Similar functionalities have been coded in all other controllers in **Admin Area
 User can provide Image for a movie to be saved in the database. The Image is saved on
 the server rather than on the database.
 
-![Add a movie](../Vidly/ProjectImages/AddingMovie.PNG)
+![Add a movie](./Vidly/ProjectImages/AddingMovie.PNG)
 
 The **User Controller** is only restricted to manager or a super admin who can see all the employees (Admins) currently working.
 
